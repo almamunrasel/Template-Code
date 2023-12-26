@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+vector<int>ara;
+
+
+void bubblesort(vector<int>&ara , int size){
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size;j++){
+            if(ara[i]<ara[j]){
+                swap(ara[i],ara[j]);
+            }
+        }
+    }
+}
+
+void selectionsort(vector<int>&ara , int size){
+    for(int i=0;i<size;i++){
+        int min=i;
+        for(int j=i+1;j<size;j++){
+            if(ara[j]<ara[min]){
+                min=j;
+            }
+        }
+        swap(ara[i],ara[min]);
+    }
+}
+
+void insertionsort(vector<int>&ara,int size){
+
+    for(int i=1;i<ara.size();i++){
+        int j=i;
+        while(j>0 && ara[j-1]>ara[j]){
+            swap(ara[j],ara[j-1]);
+            j--;
+        }
+    }
+
+}
+
+
+int main(){
+    int n=7;
+    for(int i=0;i<n;i++){
+        int temp;
+        cin>>temp;
+        ara.push_back(temp);
+
+    }
+    // selectionsort(ara,ara.size());
+    // bubblesort(ara,ara.size());
+    insertionsort(ara,ara.size());
+
+    
+
+    for(int i=0;i<ara.size();i++){
+        cout<<ara[i]<<endl;
+    }
+
+  
+}
