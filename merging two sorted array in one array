@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+vector<int>   merging(vector<int>&listone,int m,vector<int>&listtwo,int n){
+    vector<int>result;
+    int i=0,j=0;
+    while(i<m || j<n){
+
+        if(listone[i]<=listtwo[j]){
+        result.push_back(listone[i]);
+        i++;
+
+    }
+        else if(listone[i]>listtwo[j]){
+                result.push_back(listtwo[j]);
+                j++;
+            }
+
+    }
+
+    
+
+    
+        if(i==m-1 && j!=n-1){
+            while(j<n-1){
+                result.push_back(listtwo[j]);
+                j++;
+            }
+        }
+        else if(i!=n-1 && j==m-1){
+            while(i<n-1){
+                result.push_back(listone[i]);
+                i++;
+            }
+        }  
+    
+
+    return result;
+}
+
+ int main()
+{
+    vector<int>listone;
+    vector<int>listtwo;
+
+    for(int i = 0; i < 7; i++)
+    {
+        int temp;
+        cin>>temp;
+        listone.push_back(temp);
+        
+    }
+    for(int i = 0; i < 7; i++)
+    {
+        int temp;
+        cin>>temp;
+        listtwo.push_back(temp);
+        
+    }
+    vector<int>result;
+
+    result= merging(listone,listone.size(),listtwo,listtwo.size());
+
+    for(int j = 0;j<result.size(); j++ ){
+        cout<<result[j]<<endl;
+    }
+    
+
+    
+
+    
+    return 0;
+}
+
