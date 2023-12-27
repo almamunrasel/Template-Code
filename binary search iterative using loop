@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+
+//// iterative using loop
+
+
+int ara[]={6,7,8,9};
+
+int bs(int ara[],int key,int n){
+    int low=0,high=n-1;
+    
+    while(low<=high){
+        int mid=(low+high)/2;
+
+        if(key<ara[mid]){
+            low=0;
+            high=mid-1;
+        }
+        else if(key>ara[mid]){
+            low=mid+1;
+            high=n-1;
+        }
+        else{
+            return mid;
+        }
+
+    }
+
+}
+
+
+
+int main(){
+    int n=sizeof(ara)/sizeof(ara[0]);
+    int key;
+    cin>>key;
+
+    cout<<bs(ara,key,n);
+}
