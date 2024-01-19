@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int maxn=100;
+
+vector<int>adj[maxn];
+bool visited[maxn];
+vector<int>result;
+
+//topological sort
+
+//Explore the graph using dfs
+//when a node has no unvisited child,push it into the result list
+//after every node is visited by dfs, reverse the result list
+//now the order present in the list is a topologically sorted order
+//there can be more than correct order
+
+
+void dfs(int source){
+    visited[source]=true;
+    for(int i=0;i<adj[source].size();i++){
+        int next=adj[source][i];
+        if(visited[source]==false){
+            dfs(source);
+        }
+    }
+    result_push_back(source);
+}
+
+
+
+
+
+int main(){
+    int v,e;
+    cin>>v>>e;
+    for(int i=0;i<e;i++){
+        int x,y;
+        cin>>x>>y;
+
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+for (int i = 1; i <= nodes; i++){
+        if (visited[i] == 0)
+            dfs(i);
+    }
+
+    reverse(result.begin(), result.end());
+    cout << "Topological order: ";
+    for (int i = 0; i < result.size(); i++){
+        cout << result[i] << ' ';
+    }
+    cout << endl;
+
+
+}
+
+
