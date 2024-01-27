@@ -1,0 +1,164 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct node node;
+struct node{
+    int val;
+    node* left;
+    node* right;
+    node(){
+        int val=0;
+        left=NULL;
+        right=NULL;
+
+    }
+};
+node *root=NULL:
+void insertTree(int value){
+    if(root==NULL){
+        root=new node();
+        root->val=value;
+    }
+    else{
+        node *curn=root;
+        while(true){
+            if(value<=curn->val){
+                if(curn->left==NULL){
+                    curn->left=new node();
+                    curn->left->val=value;
+                    break;
+                }
+                else{
+                    curn=curn->left;
+                }
+
+            }
+            else{
+                if(curn->right==NULL){
+                    curn->right==new node();
+                    curn->right->val=value;
+                    break;
+                }
+                else{
+                    curn=curn->right;
+                }
+
+            }
+        }
+    }
+}
+void inorder(node* crnt){
+    ///left, root, right
+    if(crnt == NULL) return;
+    inorder_recursive(crnt->lt);
+    printf("%d ",crnt->val);
+    inorder_recursive(crnt->rt);
+}
+bool search(node *root,int data){
+    node *curn=root;
+    if(curn==NULL){
+        return false;
+    }
+    else if(data==curn->val){
+         return true;
+    }
+    else if(data<=curn->val){
+        return search(curn->left,data);
+
+    }
+    else if(data>=curn->val){
+        return search(curn->right,data);
+
+    }
+}
+int findmin(node *root){
+    if(root==NULL){
+        cout<<"Tree is empty"<<endl;
+        return -1;
+    }
+    node *curn=root;
+    while(curn->left!=NULL){
+        curn=curn->left;
+    }
+    return curn->val;
+
+}
+int findmax(node *root){
+    if(root==NULL){
+        cout<<"Tree is empty";
+        return -1;
+    }
+    node *curn=root;
+    while(curn->right!=NULL){
+        curn=curn->right;
+    }
+    return curn->val;
+}
+void findPreSuc(node* root, node*& pre, node*& suc, int data)
+{
+    if(root == NULL)
+        return;
+    if(root->val == data)
+    {
+        if(root->left!= NULL)
+        {
+            node* temp = root->left;
+            while(temp->right)
+                temp = temp->right;
+            pre = temp;
+        }
+        if(root->right!= NULL)
+        {
+            node* temp = root->right;
+            while(temp->left)
+                temp = temp->left;
+            suc = temp;
+        }
+        return;
+    }
+    if(root->val > data)
+    {
+        suc = root;
+        findPreSuc(root->left, pre, suc, data);
+    }
+    else
+    {
+        pre = root;
+        findPreSuc(root->right, pre, suc, data);
+    }
+}
+
+int main(){
+
+    ///5 7 9 1 3 2 4
+    int n;
+    cin>>n;
+    for(int i = 1; i <= n; i++){
+        int x;
+        cin>>x;
+        insertTree(x);
+    }
+    printf("InOrder traversal of the given tree \n");
+    inorder(root);
+    int key, max, min;
+    max = findmax(root);
+    min = findmin(root);
+    printf("\nMaximum value in BST is: %d\n",max);
+    printf("Minimum value in BST is: %d\n",min);
+    node* pre = NULL, *suc = NULL;
+    findPreSuc(root, pre, suc, key);
+    if(pre!= NULL)
+        printf("Predecessor is %d\n", pre->val);
+    else
+        printf("No Predecessor\n");
+    if(suc!= NULL)
+        printf("Successor is %d\n", suc->val);
+    else
+        printf("No Successor\n");
+    printf("Enter value to search: ");
+    scanf("%d", &key);
+    if(search(root, key))
+        printf("Node Exist!\n");
+    else
+        printf("Node is not Exist!\n");
+
+}
