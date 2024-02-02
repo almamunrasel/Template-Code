@@ -1,0 +1,132 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+struct node
+{
+    int data;
+    node* left;
+    node* right;
+
+    node(){
+        data=0;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+node* root=NULL;
+///inserting a node data in a bst
+void insertNode(int data){
+    if(root==NULL){
+        root=new node();
+        root->data=data;
+    }
+    else{
+        node* curnode=root;
+        while(true){
+            if(data<=curnode->data){
+                if(curnode->left==NULL){
+                    curnode->left=new node();
+                    curnode->left->data=data;
+                }
+                else{
+                    curnode=curnode->left;
+                }
+            }
+            else if(data>curnode->data){
+                if(curnode->right==NULL){
+                    curnode->right=new node();
+                    curnode->right->data=data;
+                }
+                else{
+                    curnode=curnode->data;
+                }
+            }
+        }
+    }
+    
+}
+//whether a  node is present in the tree or not
+bool searchTree(int data){
+    node* curnode=root;
+    if(curnode==NULL) return false;
+    else if(curnode->data==data) return true;
+    else if(data<=curnode->data) return searchTree(curnode->left);
+    else if(data>curnode->data)  return searchTree(curnode->right);
+}
+//finding the minimum and the maximum node in a bst
+pair<int,int> findminmax(node* root){
+    pair<int,int>minmax;
+    node* curnodeleft=root;
+    node* curnoderight=root;
+    if(root==NULL) return;
+    else{
+       
+        while(curnodeleft->left!=NULL){
+            curnodeleft=curnodeleft->left;
+        }
+        
+        while(curnoderight->right!=NULL){
+            curnoderight=curnoderight->right;
+        }
+    }
+
+    minmax.first=curnodeleft->data;
+    minmax.second=curnoderight->data;
+
+    return minmax;
+    
+}
+
+void bfs(int source){
+    queue<int>q;
+    q.push(source);
+    visited[source]=true;
+    while(!q.empty()){
+        int u=q.front();
+        q.pop();
+
+        for(int i=0;i<adj[u].size();i++){
+            int v=adj[u][i];
+            if(visited[v]==true) continue;
+            visited[v]=true;
+            q.push(v);
+        }
+    }
+}
+///level order traversal using bfs
+void leverOrder(node* root){
+    
+    if(root==NULL) return;
+
+    else{
+        queue<node*> q;
+        q.push(root);
+        while(!q.empty()){
+            node* curnode=q.front();
+            q.pop();
+            cout<<curnode->data;
+            if(curnode->left!=NULL) q.push(curnode->left);
+            if(curnode->right!=NULL) q.push(curnode->right);
+        }
+    }
+}
+///preorder traversal
+
+void preorder(node* root){
+    if(root==NULL) return;
+    cout<<root->data;
+    preorder(root->left);
+    preorder(root->right);
+}
+
+//finding height or maximum depth of a binary tree
+
+int findHeight(node* root){
+    if(root==NULL) return -1;
+    return max(findHeight(root->left),findHeight(root->right)+1);
+}
+
+
+
