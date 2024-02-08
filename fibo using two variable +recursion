@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fib(int n){
+    int a=0;
+    int b=1;
+    int nextterm;
+
+    for(int i=1;i<=n;i++){
+        cout<<a<<" ";
+        nextterm=a+b;
+        a=b;
+        b=nextterm;
+    }
+    return a;
+}
+
+int fibr(int n){
+
+    if(n<=1) return n;
+    else return fibr(n-1)+fibr(n-2);
+}
+
+int main(){
+    int n;
+    cin>>n;
+    cout<<fibr(n);
+}
