@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int weight[]={1,3,4,5};
+int profit[]={1,4,8,7};
+int wc=7;
+int n=sizeof(weight)/sizeof(weight[0]);
+int dp[n+1][wc+1];
+memeset(dp,-1,sizeof(dp));
+
+int knapsack(int weight[],int profit[],int wc,int n){
+    //base conditon
+    if(n==0 || wc==0){
+        return 0;
+    }
+    if(dp[n][w]!= -1) return dp[n][wc];
+    //choice diagram
+    if(weight[n-1]<=wc)
+        return  dp[n][wc] = max(profit[n-1]+knapsack(weight,profit,wc-weight[n-1],n-1),//eta nichi
+                    knapsack(weight,profit,wc,n-1)//eta ni nai
+                    );
+}   if(weight[n-1]>wc)
+        return dp[n][wc] = knapsack(weight,profit,wc,n-1); 
+
+
+
+int main(){
+    cout<<n;
+}
