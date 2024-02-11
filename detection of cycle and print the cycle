@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>  // For reverse
+
+using namespace std;
+
+#define MAX_VERTICES 1000  // Adjust the size accordingly
+
+bool visited[MAX_VERTICES];
+vector<int> adj[MAX_VERTICES];  // Assuming you are using vectors for adjacency list
+
+bool dfs(int current, int parent, vector<int>& cycle) {
+    visited[current] = true;
+    cycle.push_back(current);
+
+    for (int i = 0; i < adj[current].size(); i++) {
+        int next = adj[current][i];
+
+        if (!visited[next]) {
+            if (dfs(next, current, cycle)) {
+                return true;  // Cycle detected
+            }
+        } else if (next != parent) {
+            // Back edge, cycle detected
+            // Print the cycle
+            cout << "Cycle detected: ";
+            for (int j = cycle.size() - 1; j >= 0; j--) {
+                cout << cycle[j] << " ";
+                if (cycle[j] == next) {
+                    break;
+                }
+            }
+            cout << endl;
+
+            return true;
+        }
+    }
+
+    cycle.pop_back();  // Remove the current vertex from the cycle
+    return false;      // No cycle detected
+}
+
+int main() {
+    // Your graph initialization goes here
+
+    // Example usage:
+    vector<int> cycle;
+    for (int i = 0; i < MAX_VERTICES; i++) {
+        if (!visited[i]) {
+            if (dfs(i, -1, cycle)) {
+                // Handle the fact that a cycle was detected
+                // You can break or return or perform additional actions as needed
+            }
+        }
+    }
+
+    return 0;
+}
