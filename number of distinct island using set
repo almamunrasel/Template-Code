@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+void dfs(int row,int col,vector<vector<bool>>&visited, int** gride ,vector<pair<int,int>>&vec,int rowb,int colb){
+
+    int dx[]={-1,0,1,0};
+    int dy[]={0,1,0,-1};
+    visited[row][col]=true;
+    vec.push_back({row-rowb,col-colb});
+    for(int i=0;i<4;i++){
+        int next_row=row+dx[i];
+        int next_col=col+dy[i];
+        if(next_row>=0 && next_col>=0 && next_row<4 && next_col<4 && visited[next_row][next_col]==false && gride[next_row][next_col]==1){
+            dfs(next_row,next_col,visited,gride,vec,rowb,colb);
+        }
+    }
+    
+}
+
+int distinctIslands(int** arr, int n, int m)
+{
+    vector<vector<bool>>visited(n,vector<bool>(m,false));
+    
+    set<vector<pair<int,int>>>st;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(visited[i][j]==false && arr[i][j]==1){
+                vector <pair<int,int>> vec;
+                dfs(i,j,visited,arr,vec,i,j);
+
+                st.insert(vec);
+            }
+        }
+    }
+
+    return st.size();
+    
+    
+}
