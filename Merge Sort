@@ -1,0 +1,49 @@
+void mergeAra(int *arr,int l,int mid,int r){
+    int ff=mid-l+1;
+    int ss=r-mid;
+    int tempf[ff];
+    int temps[ss];
+
+    for(int i=0;i<ff;i++){
+        tempf[i]=arr[l+i];
+        
+    }
+    for(int j=0;j<ss;j++){
+        temps[j]=arr[mid+1+j];
+    }
+    int i=0,j=0,k=l;
+    while(i<ff && j<ss){
+        if(tempf[i]<=temps[j]){
+            arr[k]=tempf[i];
+            i++;
+        }else{
+            arr[k]=temps[j];
+            j++;
+        }
+        k++;
+    }
+    while(i<ff){
+         arr[k]=tempf[i];
+         i++;
+         k++;
+
+    }
+    while(j<ss){
+        arr[k]=temps[j];
+        j++;
+        k++;
+    }
+}
+
+
+
+void mergeSort(int arr[], int l, int r) {
+
+    if(l<r){
+        int mid=(l+(r-1))/2;
+        mergeSort(arr,l, mid);
+        mergeSort(arr, mid+1,  r);
+        mergeAra(arr,l,mid,r);
+    }
+    
+}
