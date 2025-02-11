@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+
+vector<string>  tokenization(const string& s,char delmiter){
+
+
+    vector<string>tokens;
+    string token;
+
+    for(int i=0;i<s.size();i++){
+        if(s[i]==delmiter){
+
+            if(!token.empty()){
+                tokens.push_back(token);
+                token.clear();
+
+        }
+    }
+        else{
+            if(isalnum(s[i])){
+                token+=tolower(s[i]);
+            }
+        }
+    }
+
+    if(!token.empty()){
+        tokens.push_back(token);
+        token.clear();
+    }
+
+    return tokens;
+
+
+}
+
+int main(){
+
+    string s;
+    getline(cin,s);
+
+    char delmiter=' ';
+
+    vector<string>result;
+
+
+    result=tokenization(s,delmiter);
+
+    for(const auto& token : result){
+        cout<<token<<endl;
+    }
+}
