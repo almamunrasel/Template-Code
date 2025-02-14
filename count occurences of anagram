@@ -1,0 +1,39 @@
+// User function template for C++
+class Solution {
+  public:
+    int search(string &pat, string &txt) {
+        unordered_map<char,int>com;
+        unordered_map<char,int>mp;
+        
+        for(int i=0;i<pat.length();i++){
+            com[pat[i]]++;
+        }
+        int k=pat.length();
+        if(k>txt.length()) return 0;
+        else{
+            
+        int i=0,j=0,result=0;
+        
+        while(i<=j){
+            mp[txt[j]]++;
+            
+            if(j-i+1<k){
+                j++;
+            }
+            else if(j-i+1==k){
+                if(mp==com){
+                    result++;
+                }
+                mp.erase(txt[i]);
+                i++;
+                j++;
+            }
+        }
+        
+        return result;
+            
+        }
+        
+       
+    }
+};
